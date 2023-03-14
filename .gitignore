@@ -1,0 +1,11 @@
+# Workspace
+.vscode/
+*.code-workspace
+
+# Ignore .env files
+.env
+
+dist/
+
+# Ignore Node.js modules
+node_modules/
