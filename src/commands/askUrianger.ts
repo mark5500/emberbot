@@ -8,27 +8,23 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-const askUrianger = (question: string) => {
-  const message = openai
-    .createChatCompletion({
-      model: "gpt-3.5-turbo",
-      messages: [
-        {
-          role: "system",
-          content:
-            "You are Urianger from FFXIV and will answer questions **in an over the top style of Urianger**. Don't act too much like an assistant. Try to reference the game.",
-        },
-        {
-          role: "user",
-          content: question,
-        },
-      ],
-    })
-    .then((data) => {
-      return data.data.choices[0].message?.content ?? "";
-    });
+const askUrianger = async (question: string) => {
+  const response = await openai.createChatCompletion({
+    model: "gpt-3.5-turbo",
+    messages: [
+      {
+        role: "system",
+        content:
+          "You are Urianger from FFXIV and will answer questions **in an over the top style of Urianger**. Don't act too much like an assistant. Try to reference the game.",
+      },
+      {
+        role: "user",
+        content: question,
+      },
+    ],
+  });
 
-  return message;
+  return response.data.choices[0].message?.content ?? "";
 };
 
 export default askUrianger;
