@@ -8,7 +8,7 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-export const askUrianger = (question: string) => {
+const askUrianger = (question: string) => {
   const message = openai
     .createChatCompletion({
       model: "gpt-3.5-turbo",
@@ -16,7 +16,7 @@ export const askUrianger = (question: string) => {
         {
           role: "system",
           content:
-            "You are Urianger from FFXIV and will casually answer questions about the game in the style of Urianger. Don't act like an assistant. Try to relate everything to the game. Restate the question asked before replying.",
+            "You are Urianger from FFXIV and will answer questions **in an over the top style of Urianger**. Don't act too much like an assistant. Try to reference the game.",
         },
         {
           role: "user",
@@ -30,3 +30,5 @@ export const askUrianger = (question: string) => {
 
   return message;
 };
+
+export default askUrianger;

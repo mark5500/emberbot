@@ -1,7 +1,9 @@
 import { Client, GatewayIntentBits, REST, Routes } from "discord.js";
-import { askUrianger } from "./commands/askUrianger";
+import "dotenv/config";
+import askUrianger from "./commands/askUrianger";
 import config from "./config";
-require("dotenv").config();
+import dotenv from "dotenv";
+dotenv.config();
 
 const rest = new REST({ version: "10" }).setToken(config.discordBotToken);
 
@@ -49,10 +51,10 @@ client.on("interactionCreate", async (interaction) => {
   console.log("question asked: " + question);
   await interaction.deferReply();
 
-  askUrianger(question).then(async (data) => {
-    console.log(data);
-    interaction.followUp(data);
-  });
+  const response = await askUrianger(question);
+  const output = "**Q: " + question + "**\n" + response;
+
+  await interaction.followUp(output);
 });
 
 client.login(config.discordBotToken);
